@@ -13,6 +13,11 @@
         android:theme="@style/Theme.InstantOrder"
         tools:targetApi="31">
         <activity
+            android:name=".OrdersActivity"
+            android:exported="false"
+            android:parentActivityName = ".HomeActivity"
+            android:launchMode="singleTop"/>
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity

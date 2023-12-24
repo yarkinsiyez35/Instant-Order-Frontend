@@ -1,5 +1,6 @@
 package com.example.instantorder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,13 +25,13 @@ public class HomeActivity extends AppCompatActivity {
         {
             String employeeId = bundle.getString("EMPLOYEE_ID");
             //send a GET request for finding the employee name and display it
+            //get the Employee object directly and pass it to the bundle from this point and on
 
             // Display a welcome message with the employee ID
             TextView welcomeMessageTextView = findViewById(R.id.welcomeMessage);
             String welcomeMessage = "Welcome to the home page, user " + employeeId;
             welcomeMessageTextView.setText(welcomeMessage);
         }
-
 
         buttonTables = findViewById(R.id.buttonTables);
         buttonTables.setOnClickListener(new View.OnClickListener() {
@@ -42,20 +43,20 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-
         buttonOrders = findViewById(R.id.buttonOrders);
         buttonOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
                 //lead to OrdersActivity
-                String message = "Orders button clicked!\n";
-                Toast.makeText(HomeActivity.this, message, Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle.putString("EMPLOYEE_ID",bundle.getString("EMPLOYEE_ID"));
+                Intent intent = new Intent(HomeActivity.this, OrdersActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                //String message = "Orders button clicked!\n";
+                //Toast.makeText(HomeActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
-
     }
 }

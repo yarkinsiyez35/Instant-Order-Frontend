@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.instantorder.Model.EmployeeLogin;
+
 
 //this Activity will be the first page in this application
 //It will send the employeeId and password to the backend
@@ -38,8 +40,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle button click here
                 String employeeId = employeeInput.getText().toString();
-                String password = passwordInput.getText().toString();
 
+                String password = passwordInput.getText().toString();
+                EmployeeLogin employeeLogin = new EmployeeLogin(Integer.parseInt(employeeId), password);    //created EmployeeLogin object to send
                 //SEND POST REQUEST
 
                 //RECEIVE RESPONSE
