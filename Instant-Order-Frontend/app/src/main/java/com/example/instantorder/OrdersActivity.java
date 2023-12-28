@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 public class OrdersActivity extends AppCompatActivity {
 
-
     private Button buttonChef;
     private Button buttonWaiter;
     private Button buttonBack;
@@ -47,10 +46,8 @@ public class OrdersActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //delete this activity and go back to home page
                 Intent intent = new Intent(OrdersActivity.this, HomeActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
-                //String message = "Back button clicked!";
-                //Toast.makeText(OrdersActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
     }

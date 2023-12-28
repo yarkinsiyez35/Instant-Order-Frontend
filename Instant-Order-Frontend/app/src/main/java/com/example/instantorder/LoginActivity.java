@@ -1,16 +1,23 @@
 package com.example.instantorder;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.instantorder.ExecService.ExecServiceApp;
 import com.example.instantorder.Model.EmployeeLogin;
+import com.example.instantorder.Repository.EmployeeLoginRepo;
+
+import java.util.concurrent.ExecutorService;
 
 
 //this Activity will be the first page in this application
@@ -23,6 +30,35 @@ public class LoginActivity extends AppCompatActivity {
     private EditText employeeInput;
     private EditText passwordInput;
     private Button buttonJoin;
+
+
+    Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message message)
+        {
+            if (message.arg1 == 1)
+            {
+                EmployeeLogin employeeLogin = (EmployeeLogin) message.obj;
+                Bundle bundle = new Bundle();
+                bundle.putString("EMPLOYEE_ID", Integer.toString(employeeLogin.getEmployeeId()));
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                Log.e("HANDLER-LOGIN", "arg1 = 1");
+                intent.putExtras(bundle);
+                startActivity(intent);
+                finish();
+            }
+            else
+            {
+                Log.e("HANDLER-LOGIN", "arg1 = 0");
+                employeeInput.setText("");          //resets the input
+                passwordInput.setText("");          //resets the input
+                String invalidMessage = "Employee ID or password is incorrect!\n";
+                Toast.makeText(LoginActivity.this,invalidMessage, Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        }
+    });
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,28 +79,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 String password = passwordInput.getText().toString();
                 EmployeeLogin employeeLogin = new EmployeeLogin(Integer.parseInt(employeeId), password);    //created EmployeeLogin object to send
-                //SEND POST REQUEST
 
-                //RECEIVE RESPONSE
-
-                boolean enter = true;
-
-                if(enter)           //in the future, it will be connected to backend and get the result
-                {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("EMPLOYEE_ID",employeeId);
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                    finish();               //there is no reason to get back to login page once user logs in
-                }
-                else        //invalid password or ID
-                {
-                    employeeInput.setText("");          //resets the input
-                    passwordInput.setText("");          //resets the input
-                    String invalidMessage = "Employee ID or password is incorrect!\n";
-                    Toast.makeText(LoginActivity.this,invalidMessage, Toast.LENGTH_SHORT).show();
-                }
+                EmployeeLoginRepo employeeLoginRepo = new EmployeeLoginRepo();
+                ExecutorService executorService = ((ExecServiceApp) getApplication()).executorService;
+                employeeLoginRepo.postEmployeeLogin(executorService, handler, employeeLogin);
             }
         });
     }
