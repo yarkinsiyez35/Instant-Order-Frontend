@@ -63,8 +63,11 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //lead to Tables Activity
-                String message = "Tables button clicked!\n";
-                Toast.makeText(HomeActivity.this, message, Toast.LENGTH_LONG).show();
+                Bundle bundle2 = new Bundle();
+                bundle2.putString("EMPLOYEE_ID",bundle.getString("EMPLOYEE_ID"));
+                Intent intent = new Intent(HomeActivity.this, TablesActivity.class);
+                intent.putExtras(bundle2);
+                startActivity(intent);
             }
         });
 
