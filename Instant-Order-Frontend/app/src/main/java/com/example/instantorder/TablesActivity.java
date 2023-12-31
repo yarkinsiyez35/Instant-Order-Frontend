@@ -68,7 +68,6 @@ public class TablesActivity extends AppCompatActivity {
             @Override
             public void TableClicked(Table table) {
                 //open TableActivity, send TableId in Bundle
-                Toast.makeText(TablesActivity.this, "CLICKED", Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();
                 bundle.putString("TABLE_ID",Integer.toString(table.getTableId()));
                 bundle.putString("EMPLOYEE_ID", Integer.toString(table.getEmployeeId()));

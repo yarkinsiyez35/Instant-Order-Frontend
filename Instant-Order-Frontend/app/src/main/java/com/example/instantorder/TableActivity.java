@@ -138,6 +138,11 @@ public class TableActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //should open a new activity, send tableId and employeeId in a bundle
+                Bundle bundleSend = new Bundle();
+                bundleSend.putString("TABLE_ID", tableId);
+                Intent intent = new Intent(TableActivity.this, MenuActivity.class);
+                intent.putExtras(bundleSend);
+                startActivity(intent);
             }
         });
 
