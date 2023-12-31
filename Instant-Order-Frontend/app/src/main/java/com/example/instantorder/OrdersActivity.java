@@ -24,9 +24,9 @@ public class OrdersActivity extends AppCompatActivity {
         buttonChef.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //go to ChefActivity
-                String message = "Kitchen button clicked!";
-                Toast.makeText(OrdersActivity.this, message, Toast.LENGTH_SHORT ).show();
+                //go to KitchenActivity
+                Intent intent = new Intent(OrdersActivity.this, KitchenActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -35,8 +35,8 @@ public class OrdersActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //go to WaiterActivity
-                String message = "Ready button clicked!";
-                Toast.makeText(OrdersActivity.this, message, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(OrdersActivity.this, ReadyActivity.class);
+                startActivity(intent);
             }
         });
 

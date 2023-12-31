@@ -26,7 +26,7 @@ public class EmployeeRepo {
                 {
                     //connection address
                     //ifconfig | grep "inet " on terminal to find currentIP
-                    String currentIP = "10.51.98.34";
+                    String currentIP = new IpAddress().getIp();
                     String address = "http://" + currentIP + ":8080/instantOrder/employees/" +employeeId;
                     Log.e("EMPLOYEE-REPO-ADDRESS", address);    //address is working on postman
                     URL url = new URL(address);

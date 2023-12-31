@@ -29,8 +29,8 @@ public class EmployeeLoginRepo {
                 {
                     //address
                     //depends on local machine
-                    //ifconfig | grep "inet " on terminal to find
-                    String currentIP = "10.51.98.34";
+
+                    String currentIP = new IpAddress().getIp();
                     String address = "http://" + currentIP + ":8080/instantOrder/login";
                     Log.d("EMPLOYEELOGIN-REPO-ADDRESS", address);
                     URL url = new URL(address);
@@ -73,7 +73,7 @@ public class EmployeeLoginRepo {
                         String reply = buffer.toString();
                         //disconnect
                         connection.disconnect();
-                        Log.e("LOGINREPO", "DISCONNECTION");
+                        Log.d("LOGINREPO", "DISCONNECTION");
                         message.arg1 = 1;
                         //convert reply to EmployeeLogin
                         Gson gsonReply = new Gson();
